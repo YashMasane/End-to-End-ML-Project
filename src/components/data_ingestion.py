@@ -6,6 +6,7 @@ from src.logger import logging
 from src.exception import CustomException
 from dataclasses import dataclass
 from src.components.data_transformation import DataTransformer
+from src.components.model_trainer import ModelTrainer
 
 @dataclass
 class DataIngestioninfo:
@@ -51,6 +52,13 @@ if __name__ == "__main__":
     train_data, test_data = obj.initiate_data_ingestion()
 
     data_transformation = DataTransformer()
-    data_transformation.initialte_data_transformation(train_data, test_data)
+    train_arr, test_arr, _ = data_transformation.initialte_data_transformation(train_data, test_data)
+    trainer = ModelTrainer()
+    score, model_name, _ = trainer.train_model(train_arr, test_arr)
+
+    print(score)
+    print(model_name)
+    print('best parameters', _)
+
 
 
